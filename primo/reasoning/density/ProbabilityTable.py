@@ -72,7 +72,21 @@ class ProbabilityTable(Density):
             value = values[index_in_values_list]
             index.append(node.value_range.index(value))
         return tuple(index)
-
+        
+    def get_slice(self, node_value_pairs):
+        '''This method returns a Tuple-of-Slice-object which can be used to reference
+        a sub-matrix for a partially defined world-instanciation (specified by a list
+        of node-value-pairs'''
+        nodes, values = zip(*node_value_pairs)
+        slices=[]
+        for variable in self.variables:
+            if variable in nodes:
+                index_in_values_list = nodes.index(node)
+                value = values[index_in_values_list]
+                slices.append(variable.value_range.index(value))
+            else:
+                slices.append([0:len(variable.value_range)])
+        return tuple(slices)
 
     def is_normalized_as_cpt(self,owner):
 
@@ -220,8 +234,8 @@ class ProbabilityTable(Density):
         variables_cutset=list(set(self.variables) & set(factor.variables)) #intersection
         
         for variable in variables_cutset:
-            for value in variable.get_value_range():
-                print 'lol'
+            for value in variable.value_range():
+                
 
                 
         #in the end repeat the matrix for each variable that only occurs in the divisor
