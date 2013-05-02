@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from  primo.core import BayesNet
-from  primo.reasoning import DiscreteNode
-from  primo.reasoning import MarkovChainSampler
+from primo.core import BayesNet
+from primo.reasoning import DiscreteNode
+from primo.reasoning import MarkovChainSampler
 from primo.reasoning import GibbsTransitionModel
 from primo.reasoning.density import ProbabilityTable
 import numpy
@@ -13,6 +13,8 @@ burglary = DiscreteNode("Burglary", ["Intruder","Safe"])
 alarm = DiscreteNode("Alarm", ["Ringing", "Silent","Kaputt"])
 
 bn.add_node(burglary)
+
+
 bn.add_node(alarm)
 
 bn.add_edge(burglary,alarm)

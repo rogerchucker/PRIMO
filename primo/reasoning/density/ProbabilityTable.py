@@ -213,15 +213,26 @@ class ProbabilityTable(Density):
     def division(self, factor):
         '''Returns a new ProbabilityTable which is the result of dividing this one by the one given
             with the argument factor'''
-        divided = ProbabilityTable()
-        variables = list(set(self.variables) | set(factor.variables))
-        for variable in variables:
-            divided.add_variable(variable)
-        for variable in variables:
+        divided = self.copy()
+        variables = list(set(self.variables) | set(factor.variables)) #union
+        variables_only_divisor=list(set(factor.variables) - set(self.variables)) #difference
+        variables_only_numerator=list(set(self.variables) - set(factor.variables)) #difference
+        variables_cutset=list(set(self.variables) & set(factor.variables)) #intersection
+        
+        for variable in variables_cutset:
             for value in variable.get_value_range():
-                index = "lol"
+                print 'lol'
+
+                
+        #in the end repeat the matrix for each variable that only occurs in the divisor
         raise Exception("Sorry, called unimplemented method ProbabilityTable.division()")
 
+
+    def iterate_worlds(self):
+        '''This method returns a generator-object, which can be used to iterate through all possible worlds
+        that this ProbabilityTable defines. Generates a list of (Node,Value) pairs.'''
+        raise Exception("Sorry, called unimplemented method ProbabilityTable.iterate_worlds()")
+        
 
     def __str__(self):
         return str(self.table)
